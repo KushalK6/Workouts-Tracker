@@ -1,3 +1,4 @@
+// how to write schema and last line doubt
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(

@@ -77,6 +77,7 @@ const TextButton = styled.span`
 
 const Authentication = () => {
   const [login, setLogin] = useState(false);
+  console.log("here")
   return (
     <Container>
       <Logo src={LogoImage} />

@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const WorkoutSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      type: mongoose.Schema.Types.ObjectId, // enti edhi
+      ref: "User",  // ref ante?
+      required: true,  // last ele end lo kuda comma pettaru
     },
     category: {
       type: String,
@@ -35,7 +35,7 @@ const WorkoutSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { timestamps: true }
+  { timestamps: true }   // ee timestamps golla enti
 );
 
 export default mongoose.model("Workout", WorkoutSchema);

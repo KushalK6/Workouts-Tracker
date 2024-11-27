@@ -8,29 +8,33 @@ import Workout from "../models/Workout.js";
 dotenv.config();
 
 export const UserRegister = async (req, res, next) => {
+  // check if he already is registered
   try {
     const { email, password, name, img } = req.body;
-
-    const existingUser = await User.findOne({ email }).exec();
+    const existingUser = await User.findOne({ email }).exec(); // exec() returns a promise. so use can .then .catch also
     if (existingUser) {
       return next(createError(409, "Email is already in use."));
     }
-
+    // hash password
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
+    console.log("hashed password")
+    //create user
     const user = new User({
       name,
       email,
       password: hashedPassword,
       img,
     });
+    //save in db
     const createdUser = await user.save();
     const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
       expiresIn: "1h",
     });
     return res.status(200).json({ token, user });
   } catch (error) {
+    console.log(error)
     return next(error);
   }
 };
@@ -220,6 +224,7 @@ export const addWorkout = async (req, res, next) => {
     }
     
     const eachworkout = workoutString.split(";").map((line) => line.trim());
+    console.log("Received each workout:", eachworkout);
     const categories = eachworkout.filter((line) => line.startsWith("#"));
     if (categories.length === 0) {
       return next(createError(400, "No categories found in workout string"));
