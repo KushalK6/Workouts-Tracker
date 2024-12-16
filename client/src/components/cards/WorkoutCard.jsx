@@ -52,6 +52,7 @@ const Details = styled.div`
 `;
 
 const WorkoutCard = ({ workout }) => {
+  console.log(workout)
   return (
     <Card>
       <Category>#{workout?.category}</Category>

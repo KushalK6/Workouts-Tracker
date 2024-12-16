@@ -26,9 +26,10 @@ const Title = styled.div`
 `;
 
 const CategoryChart = ({ data }) => {
+  //console.log(data);
   return (
     <Card>
-      <Title>Weekly Calories Burned</Title>
+      <Title>Today's Category Wise Pie Chart</Title>
       {data?.pieChartData && (
         <PieChart
           series={[

@@ -16,8 +16,8 @@ export const UserRegister = async (req, res, next) => {
       return next(createError(409, "Email is already in use."));
     }
     // hash password
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(10);         // .genSaltSync
+    const hashedPassword = bcrypt.hashSync(password, salt);   //
 
     console.log("hashed password")
     //create user
@@ -28,9 +28,9 @@ export const UserRegister = async (req, res, next) => {
       img,
     });
     //save in db
-    const createdUser = await user.save();
-    const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
-      expiresIn: "1h",
+    const createdUser = await user.save();    // .save() 
+    const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {    //jwt.sign
+      expiresIn: "1h", 
     });
     return res.status(200).json({ token, user });
   } catch (error) {
@@ -48,7 +48,7 @@ export const UserLogin = async (req, res, next) => {
       return next(createError(404, "User not found"));
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);  //bcrypt.compare
     if (!isPasswordCorrect) {
       return next(createError(403, "Incorrect password"));
     }
@@ -83,7 +83,7 @@ export const getUserDashboard = async (req, res, next) => {
       currentDateFormatted.getDate() + 1
     );
 
-    const totalCaloriesBurnt = await Workout.aggregate([
+    const totalCaloriesBurnt = await Workout.aggregate([      //monogodb
       { $match: { user: user._id, date: { $gte: startToday, $lt: endToday } } },
       {
         $group: {
@@ -138,7 +138,7 @@ export const getUserDashboard = async (req, res, next) => {
         date.getDate() + 1
       );
 
-      const weekData = await Workout.aggregate([
+      const weekData = await Workout.aggregate([   //mongodb
         {
           $match: {
             user: user._id,

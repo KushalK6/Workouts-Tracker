@@ -26,6 +26,7 @@ const Title = styled.div`
 `;
 
 const WeeklyStatCard = ({ data }) => {
+  //console.log(data)
   return (
     <Card>
       <Title>Weekly Calories Burned</Title>
